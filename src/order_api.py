@@ -23,7 +23,7 @@ def order_routes(app):
             valid_size = validate_int(size)
             if not valid_size:
                 flash("Invalid entry", "danger")
-                return render_template("bouquet_size.html"), 422
+                return render_template("bouquet_size.html")
             BQ_SIZE[0] = valid_size
             return render_template("show_flower.html", items=STOCK)
         return render_template("bouquet_size.html")
@@ -43,20 +43,20 @@ def order_routes(app):
             order = Order(valid_order_quantity, in_stock, flower_name, price)
             if not valid_order_quantity:
                 flash("Invalid entry", "danger")
-                return render_template("show_flower.html", items=STOCK), 422
+                return render_template("show_flower.html", items=STOCK), 400
             if order.flower_out_of_stock():
                 flash(
                     "We are out of stock. You may order something else or cancel order",
                     "danger",
                 )
-                return render_template("show_flower.html", items=STOCK), 422
+                return render_template("show_flower.html", items=STOCK)
             if order.bq_size_exceeded():
                 flash(
                     f"you have exceeded your bouquet size. You have {BQ_SIZE[0]} "
                     f"flowers left to add",
                     "danger",
                 )
-                return render_template("show_flower.html", items=STOCK), 422
+                return render_template("show_flower.html", items=STOCK)
             # adds items to your cart and reduces bq_size by valid_order_quantity
             order.adding_to_cart()
             flash(

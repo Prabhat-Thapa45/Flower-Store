@@ -13,23 +13,31 @@ def test_cancel():
 
 
 class TestOrders:
+    """ has test cases for post requests in order.py """
     def test_flower_out_of_stock(self, order):
-        """ Asserts two situation first in stock and second out of stock """
+        """ Asserts two situation first in stock and second out of stock
+        :param order: tuple of two objects of class Order
+        """
         # In stock = 10, ordered quantity = 4
         assert not order[0].flower_out_of_stock()
         # Here in stock = 3, ordered quantity = 4
         assert order[1].flower_out_of_stock()
 
     def test_bq_size_exceeded(self, order):
-        """ asserts if ordered flower doesn't exceeds BQ_SIZE limit """
+        """
+        asserts if ordered flower doesn't exceeds BQ_SIZE limit
+        :param order: tuple of two objects of class Order
+        """
         # BQ_SIZE = 4, order quantity = 4
         BQ_SIZE[0] = 4
         assert not order[0].bq_size_exceeded()
-        # Here BQ_SIZE = 2 and order quantity = 4
-        BQ_SIZE[0] = 2
-        assert order[0].bq_size_exceeded()
 
     def test_bq_size_exceeded_negative(self, order):
+        """
+        assert that bouquet size is exceeded
+        :param order: tuple of two objects of class Order.
+        :return:
+        """
         # BQ_SIZE = 2, order quantity = 4
         BQ_SIZE[0] = 2
         assert order[0].bq_size_exceeded()
@@ -54,7 +62,10 @@ class TestOrders:
         assert not Order.check_order_criteria()
 
     def test_proceed_to_buy(self, order):
-        """ Reduces quantity from stock and clears items from your cart """
+        """
+        Reduces quantity from stock and clears items from your cart
+        :param order: tuple of two objects of class Order
+        """
         # initialised 20 in stock for Rose
         STOCK[0]['quantity'] = 20
         # added 4 flowers from first element in STOCK i.e. ROSE to cart

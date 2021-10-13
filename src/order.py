@@ -48,17 +48,19 @@ class Order:
         :return: list of items in your cart
         """
         if len(YOUR_CART) > 0:
+            new = 1
             for item in YOUR_CART:
-                if self.flower_name == item["flower_name"]:
+                if item["flower_name"] == self.flower_name:
                     item["quantity"] += self.valid_order_quantity
-                else:
-                    YOUR_CART.append(
-                        {
-                            "flower_name": self.flower_name,
-                            "quantity": self.valid_order_quantity,
-                            "price": self.price,
-                        }
-                    )
+                    new = 0
+            if new == 1:
+                YOUR_CART.append(
+                    {
+                        "flower_name": self.flower_name,
+                        "quantity": self.valid_order_quantity,
+                        "price": self.price,
+                    }
+                )
         else:
             YOUR_CART.append(
                 {
