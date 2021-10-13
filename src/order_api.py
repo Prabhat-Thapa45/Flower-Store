@@ -1,4 +1,4 @@
-""" has view functions to make order and handle the requests got from api """
+""" Has view functions to make order and handle the requests got from api """
 
 from flask import flash, render_template, request
 from src.order import Order, cancel
