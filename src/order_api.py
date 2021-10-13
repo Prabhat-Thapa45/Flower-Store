@@ -1,9 +1,10 @@
 """ has view functions to make order and handle the requests got from api """
 
 from flask import flash, render_template, request
-from src.utility.constants import STOCK, BQ_SIZE, YOUR_CART
-from src.utility.validate_input import validate_int
+
 from src.order import Order, cancel
+from src.utility.constants import BQ_SIZE, STOCK, YOUR_CART
+from src.utility.validate_input import validate_int
 
 
 def order_routes(app):
@@ -51,7 +52,8 @@ def order_routes(app):
                 return render_template("show_flower.html", items=STOCK), 422
             if order.bq_size_exceeded():
                 flash(
-                    f"you have exceeded your bouquet size. You have {BQ_SIZE[0]} flowers left to add",
+                    f"you have exceeded your bouquet size. You have {BQ_SIZE[0]} "
+                    f"flowers left to add",
                     "danger",
                 )
                 return render_template("show_flower.html", items=STOCK), 422
@@ -83,10 +85,11 @@ def order_routes(app):
             return render_template("canceled.html")
 
     @app.route("/menu/bouquet_size/go_to_cart/buy", methods=["POST"])
-    def buy():
+    def buy() -> None or str:
         """
         Updates the stock and clears items from your cart
         """
+
         if request.method == "POST":
             flash(Order.proceed_to_buy(), "success")
             return render_template("order_placed.html")

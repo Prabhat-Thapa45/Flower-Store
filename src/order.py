@@ -1,10 +1,13 @@
 """ has all the functionalities to make order for """
 
-from src.utility.constants import STOCK, BQ_SIZE, YOUR_CART
-from typing import Union, Tuple
+from typing import Tuple, Union
+
+from src.utility.constants import BQ_SIZE, STOCK, YOUR_CART
 
 
-def cancel():
+def cancel() -> None:
+    """this method updates the stock back to initial stage before adding to cart and removes
+    data from your cart"""
     for item_1 in YOUR_CART:
         for item_2 in STOCK:
             if item_1["flower_name"] == item_2["flower_name"]:
@@ -31,8 +34,6 @@ class Order:
         """
         if self.valid_order_quantity > self.in_stock:
             return True
-        else:
-            return False
 
     def bq_size_exceeded(self) -> Union[bool, None]:
         """

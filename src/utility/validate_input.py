@@ -4,7 +4,7 @@ This module validates int and float datatype and returns a valid int and float d
 from typing import Union
 
 
-def validate_int(value) -> Union[int, None]:
+def validate_int(value) -> Union[int, bool]:
     """
     Returns positive int value else None
     :param value: str
@@ -16,9 +16,9 @@ def validate_int(value) -> Union[int, None]:
     except ValueError:
         return False
     else:
-        if value < 1:
-            return False
-        return value
+        if 1 <= value <= 200:
+            return value
+        return False
 
 
 def validate_float(value) -> Union[float, None]:

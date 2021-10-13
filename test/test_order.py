@@ -4,12 +4,17 @@ from src.order import Order, cancel
 from src.utility.constants import BQ_SIZE, STOCK, YOUR_CART
 
 
-def test_cancel(order, stock):
-    # initial stock or Rose
+def test_cancel(order):
+    """
+    this updates stock details back to initial and clears items from your cart
+    :param order: it's a tuple of two objects of class Order.
+    1st is Order(order_amount=4, in_stock=10, flower="Rose", price=4.5)
+    """
+    # initial stock of Rose
     assert STOCK[0]['quantity'] == 24
     order[0].adding_to_cart()
     order[0].update_stock()
-    # after adding to cart
+    # after adding to cart stock is reduced
     assert STOCK[0]['quantity'] == 20
     cancel()
     # after order being canceled it's back to initial
@@ -29,7 +34,7 @@ class TestOrders:
         assert not order[0].bq_size_exceeded()
 
     def test_adding_to_cart(self, order):
-        BQ_SIZE[0] == 4
+        # BQ_SIZE[0] == 4
         assert len(order[0].adding_to_cart()) == 1
         # ordered quantity is 4 so BQ_SIZE got reduced by 4
         assert BQ_SIZE[0] == 0

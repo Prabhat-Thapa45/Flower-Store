@@ -2,6 +2,7 @@
 {% include 'includes/_navbar.html' %}
 {% block body %}
     <form action="" method="post">
+        <label>Enter Bouquet Size </label>
         <input type="text" name="bouquet_size" value="{{request.form.bouquet_size}}">
         <button type="submit" class="btn btn-primary">Confirm</button>
     </form>

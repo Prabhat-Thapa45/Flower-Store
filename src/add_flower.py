@@ -4,6 +4,10 @@ from src.utility.constants import STOCK
 
 
 class AddFlower:
+    """
+    has functions for adding new or in stock flowers
+    """
+
     def __init__(self, flower_name: str):
         self.flower_name = flower_name.capitalize()
 
