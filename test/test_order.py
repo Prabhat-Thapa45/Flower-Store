@@ -1,55 +1,65 @@
 """ this module tests order.py """
 
 from src.order import Order, cancel
-from src.utility.constants import BQ_SIZE, STOCK, YOUR_CART
+from src.utility.constants import BQ_SIZE, YOUR_CART, STOCK
 
 
-def test_cancel(order):
+def test_cancel():
     """
-    this updates stock details back to initial and clears items from your cart
-    :param order: it's a tuple of two objects of class Order.
-    1st is Order(order_amount=4, in_stock=10, flower="Rose", price=4.5)
+    clears items from your cart
     """
-    # initial stock of Rose
-    assert STOCK[0]['quantity'] == 24
-    order[0].adding_to_cart()
-    order[0].update_stock()
-    # after adding to cart stock is reduced
-    assert STOCK[0]['quantity'] == 20
     cancel()
-    # after order being canceled it's back to initial
-    assert STOCK[0]['quantity'] == 24
     assert YOUR_CART == []
 
 
 class TestOrders:
     def test_flower_out_of_stock(self, order):
+        """ Asserts two situation first in stock and second out of stock """
+        # In stock = 10, ordered quantity = 4
         assert not order[0].flower_out_of_stock()
+        # Here in stock = 3, ordered quantity = 4
         assert order[1].flower_out_of_stock()
 
     def test_bq_size_exceeded(self, order):
-        # BQ_SIZE = 0, order quantity = 4
-        assert order[0].bq_size_exceeded()
+        """ asserts if ordered flower doesn't exceeds BQ_SIZE limit """
+        # BQ_SIZE = 4, order quantity = 4
         BQ_SIZE[0] = 4
         assert not order[0].bq_size_exceeded()
+        # Here BQ_SIZE = 2 and order quantity = 4
+        BQ_SIZE[0] = 2
+        assert order[0].bq_size_exceeded()
+
+    def test_bq_size_exceeded_negative(self, order):
+        # BQ_SIZE = 2, order quantity = 4
+        BQ_SIZE[0] = 2
+        assert order[0].bq_size_exceeded()
 
     def test_adding_to_cart(self, order):
-        # BQ_SIZE[0] == 4
+        """
+        asserts if item is added to your cart and BQ_SIZE is also reduced
+        :param order: tuple of two objects of class Order.
+        :return:
+        """
+        BQ_SIZE[0] = 4
         assert len(order[0].adding_to_cart()) == 1
         # ordered quantity is 4 so BQ_SIZE got reduced by 4
         assert BQ_SIZE[0] == 0
         YOUR_CART.clear()
 
-    def test_update_stock(self, order):
-        # before update
-        assert STOCK[0]['quantity'] == 24
-        assert order[0].update_stock() == 20
-
     def test_check_order_criteria(self):
+        """ asserts true only if BQ_SIZE == 0 """
+        BQ_SIZE[0] = 0
         assert Order.check_order_criteria()
         BQ_SIZE[0] = 1
         assert not Order.check_order_criteria()
 
-    def test_proceed_to_buy(self):
-        # clears items from your cart once the order is placed
+    def test_proceed_to_buy(self, order):
+        """ Reduces quantity from stock and clears items from your cart """
+        # initialised 20 in stock for Rose
+        STOCK[0]['quantity'] = 20
+        # added 4 flowers from first element in STOCK i.e. ROSE to cart
+        order[0].adding_to_cart()
+        # called the function
+        Order.proceed_to_buy()
+        assert STOCK[0]['quantity'] == 16
         assert YOUR_CART == []

@@ -5,6 +5,6 @@ STOCK = [
     {"flower_name": "Lily", "quantity": 20, "price": 5.50},
 ]
 
-BQ_SIZE = []
+BQ_SIZE = [0]
 
 YOUR_CART = []

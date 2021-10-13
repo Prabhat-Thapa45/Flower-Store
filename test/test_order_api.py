@@ -12,7 +12,7 @@ def test_get_bouquet_size(order_client, order_urls):
 
 
 class TestPost:
-    def test_post_bouquet_size(self, order_client, order_urls):
+    def test_bouquet_size(self, order_client, order_urls):
         url = order_urls['bouquet_size']
         for i in [1, 3, 6]:
             response = order_client.post(url, data={'bouquet_size': i})
@@ -20,14 +20,14 @@ class TestPost:
             assert response.request.path == url
             assert BQ_SIZE == [i]
 
-    def test_post_bouquet_size_negative(self, order_client, order_urls):
+    def test_bouquet_size_negative(self, order_client, order_urls):
         url = order_urls['bouquet_size']
         for i in [0, -1, 'w']:
             response = order_client.post(url, data={'bouquet_size': i})
             assert response.status_code == 422
             assert response.request.path == url
 
-    def test_post_add_to_cart(self, order_client, order_urls):
+    def test_add_to_cart(self, order_client, order_urls):
         url = order_urls['add_to_cart']
         # giving bouquet size of 4
         order_client.post(url, data={'bouquet_size': 4})
@@ -35,7 +35,7 @@ class TestPost:
         assert response.status_code == 200
         assert response.request.path == '/menu/bouquet_size/add'
 
-    def test_post_add_to_cart_negative(self, order_client, order_urls):
+    def test_add_to_cart_negative(self, order_client, order_urls):
         url = order_urls['add_to_cart']
         # giving bouquet size of 4
         order_client.post(url, data={'bouquet_size': 4})

@@ -11,13 +11,6 @@ from src.add_flower import AddFlower
 
 
 @pytest.fixture()
-def stock() -> list:
-    return [{"flower_name": "Rose", "quantity": 20, "price": 4.50},
-            {"flower_name": "Lily", "quantity": 20, "price": 5.50},
-            ]
-
-
-@pytest.fixture()
 def welcome_client():
     app = Flask(__name__, template_folder='../templates')
     welcome_routes(app)
@@ -28,7 +21,7 @@ def welcome_client():
 
 @pytest.fixture()
 def welcome_urls() -> dict:
-    return {"index": '/', 'about': '/about', 'contact': '/contact', 'menu': '/menu'}
+    return {"index": '/', 'about': '/about', 'contact': '/contact'}
 
 
 @pytest.fixture()

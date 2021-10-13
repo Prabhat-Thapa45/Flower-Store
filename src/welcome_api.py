@@ -23,5 +23,5 @@ def welcome_routes(app):
         return render_template("contact.html")
 
     @app.route("/menu")
-    def menu() -> str:
+    def menu():
         return render_template("menu.html")

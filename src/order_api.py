@@ -1,6 +1,7 @@
 """ Has view functions to make order and handle the requests got from api """
 
 from flask import flash, render_template, request
+
 from src.order import Order, cancel
 from src.utility.constants import BQ_SIZE, STOCK, YOUR_CART
 from src.utility.validate_input import validate_int
@@ -15,7 +16,7 @@ def order_routes(app):
     @app.route("/menu/bouquet_size", methods=["GET", "POST"])
     def bouquet_size():
         """
-        Takes valid bouquet size and stores for further use
+        Takes valid bouquet size (1 to 200) and stores for further use
         """
         if request.method == "POST":
             size = request.form["bouquet_size"]
@@ -58,7 +59,6 @@ def order_routes(app):
                 return render_template("show_flower.html", items=STOCK), 422
             # adds items to your cart and reduces bq_size by valid_order_quantity
             order.adding_to_cart()
-            order.update_stock()
             flash(
                 f"Flower added to cart. You have {BQ_SIZE[0]} flowers left to add",
                 "success",
