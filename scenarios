@@ -24,6 +24,10 @@ considered.
 invalid data are rejected
 
 
+[cancel]
+If you want to cancel your order than the data in stock is cleared.
+
+
 [Go_to_cart]
 To go to cart you must order the amount of flowers equal to bouquet size given previously
 here checking criteria is used and if bouquet size is finally zero then only we can proceed to cart
