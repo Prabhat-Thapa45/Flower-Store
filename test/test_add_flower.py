@@ -1,6 +1,7 @@
 """ this module tests add_flower.py """
 
 from src.utility.constants import STOCK
+from src.utility.validate_input import validate_float, validate_int
 
 
 def test_add_to_stock(add):
@@ -8,6 +9,17 @@ def test_add_to_stock(add):
     assert STOCK[0]['quantity'] == 20
     add[0].add_to_stock(10)
     assert STOCK[0]['quantity'] == 30
+    STOCK[0]['quantity'] = 20
+
+
+def test_add_to_stock_negative(add):
+    """ assert if the stocks are added """
+    assert STOCK[0]['quantity'] == 20
+    for i in ["2.32", "sd", -2, 0, 201]:
+        value = validate_int(i)
+        add[0].add_to_stock(value)
+        # there is no change in our stock on invalid input
+        assert STOCK[0]['quantity'] == 20
     STOCK[0]['quantity'] = 20
 
 
@@ -21,4 +33,3 @@ def test_add_new_in_stock(add):
     assert len(STOCK) == length + 1
     assert STOCK[-1] == {'flower_name': "Sunflower", 'quantity': 10, "price": 4.5}
     STOCK.pop()
-
