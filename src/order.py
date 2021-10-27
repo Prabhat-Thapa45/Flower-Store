@@ -49,7 +49,8 @@ class Order:
         """
         if len(YOUR_CART) > 0:
             new = 1
-            # if new flower added already exists in your cart then only the quantity is added to previous order
+            # if new flower added already exists in your cart then only the quantity
+            # is added to previous order
             for item in YOUR_CART:
                 if item["flower_name"] == self.flower_name:
                     item["quantity"] += self.valid_order_quantity

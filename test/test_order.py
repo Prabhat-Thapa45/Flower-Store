@@ -34,7 +34,7 @@ class TestOrders:
 
     def test_bq_size_exceeded_negative(self, order):
         """
-        assert that bouquet size is exceeded
+  et size is exceeded
         :param order: tuple of two objects of class Order.
         :return:
         """

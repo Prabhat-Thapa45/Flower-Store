@@ -45,7 +45,7 @@ class TestPost:
             assert response.request.path == url
             assert BQ_SIZE[0] == 0
 
-    def test_add_to_cart(self, order_client, order_urls, order):
+    def test_add_to_cart(self, order_client, order_urls):
         """
         asserts that the valid data is passed in post request
         :param: order_client: client for order_api.py
